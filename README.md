@@ -17,8 +17,8 @@ Maven多模块SpringMVC+MyBatis
 加入微信端和APP端
 
 ###依赖传递关系
-comm -> master
-comm -> organization
-master -> organization
-master -> web
-organization -> web
+comm -> master <br/>
+comm -> organization <br/>
+master -> organization <br/>
+master -> web <br/>
+organization -> web <br/>
