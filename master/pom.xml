@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>teac</artifactId>
+        <groupId>com.kiviblog</groupId>
+        <version>0.3</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>master</artifactId>
+    <packaging>jar</packaging>
+
+    <name>master</name>
+    <url>http://teac.kiviblog.com</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kiviblog</groupId>
+            <artifactId>comm</artifactId>
+            <version>0.3</version>
+        </dependency>
+    </dependencies>
+</project>
