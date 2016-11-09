@@ -9,6 +9,9 @@
 <html>
 <head>
     <title>Title</title>
+    <script>
+
+    </script>
 </head>
 <body>
 ${msg}

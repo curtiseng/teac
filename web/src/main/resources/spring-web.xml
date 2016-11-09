@@ -19,7 +19,7 @@
     <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <value>classpath:data.properties</value>
+                <!--<value>classpath:data.properties</value>-->
                 <value>classpath:teac.properties</value>
             </list>
         </property>
@@ -31,7 +31,7 @@
     <!--视图解析器-->
     <bean id="jsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="suffix" value=".html"/>
     </bean>
 
 </beans>
