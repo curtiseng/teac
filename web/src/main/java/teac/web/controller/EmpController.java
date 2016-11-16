@@ -2,8 +2,8 @@ package teac.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import teac.core.service.EmpService;
-import teac.core.service.OEmpService;
+import teac.master.service.EmpService;
+import teac.organ.service.OEmpService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
