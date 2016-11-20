@@ -1,4 +1,4 @@
-package teac.comm.map;
+package teac.comm.string;
 
 import java.util.ArrayList;
 import java.util.List;
