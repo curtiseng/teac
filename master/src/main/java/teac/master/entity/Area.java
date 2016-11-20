@@ -6,5 +6,4 @@ package teac.master.entity;
  */
 public class Area {
 
-
 }
