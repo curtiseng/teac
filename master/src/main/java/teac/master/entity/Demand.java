@@ -1,4 +1,4 @@
-package teac.master.data;
+package teac.master.entity;
 
 /**
  * 家长(User)需求实体

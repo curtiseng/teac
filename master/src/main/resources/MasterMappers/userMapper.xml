@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="teac.master.po.EmpPo">
-    <select id="findAll" resultType="teac.master.data.Emp">
+<mapper namespace="teac.master.dao.EmpPo">
+    <select id="findAll" resultType="teac.master.entity.Emp">
         SELECT * FROM emp
     </select>
 

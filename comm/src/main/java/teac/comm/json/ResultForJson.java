@@ -48,7 +48,7 @@ public class ResultForJson<T> implements Serializable{
         return "ResultForJson{" +
                 "resultStatus=" + resultStatus +
                 ", msg='" + msg + '\'' +
-                ", data=" + data +
+                ", entity=" + data +
                 '}';
     }
 }

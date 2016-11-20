@@ -1,4 +1,4 @@
-package teac.master.data;
+package teac.master.entity;
 
 /**
  * 家长教师预约关系实体

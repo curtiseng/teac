@@ -35,8 +35,8 @@
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--默认全部-->
-        <property name="basePackage" value="teac.*.po"/>
+        <property name="basePackage" value="teac.*.dao"/>
         <!--启用注解-->
-        <!--<property name="annotationClass" value="teac.core.po.annotations.MyBatisDao"/>-->
+        <!--<property name="annotationClass" value="teac.core.dao.annotations.MyBatisDao"/>-->
     </bean>
 </beans>

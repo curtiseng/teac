@@ -1,8 +1,9 @@
-package teac.master.po;
+package teac.master.dao;
 
 import org.springframework.stereotype.Repository;
-import teac.master.data.Emp;
+import teac.master.entity.Emp;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,4 +13,5 @@ import java.util.List;
 @Repository
 public interface EmpPo {
     List<Emp> findAll();
+    Date date = new Date();
 }

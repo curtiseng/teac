@@ -1,4 +1,4 @@
-package teac.master.data;
+package teac.master.entity;
 
 /**
  * 学科科目表

@@ -64,6 +64,7 @@ CREATE TABLE 'teac_teacher'(
 )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 
 
+
 -- -------------------
 -- 地域
 -- -------------------

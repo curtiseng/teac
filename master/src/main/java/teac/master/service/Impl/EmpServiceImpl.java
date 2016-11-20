@@ -1,7 +1,7 @@
 package teac.master.service.Impl;
 
 import org.springframework.stereotype.Service;
-import teac.master.po.EmpPo;
+import teac.master.dao.EmpPo;
 import teac.master.service.EmpService;
 
 import javax.annotation.Resource;

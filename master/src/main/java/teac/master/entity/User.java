@@ -1,4 +1,4 @@
-package teac.master.data;
+package teac.master.entity;
 
 /**
  * 基础注册用户实体

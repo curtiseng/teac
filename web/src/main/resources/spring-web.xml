@@ -19,7 +19,7 @@
     <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <!--<value>classpath:data.properties</value>-->
+                <!--<value>classpath:entity.properties</value>-->
                 <value>classpath:teac.properties</value>
             </list>
         </property>
