@@ -20,12 +20,18 @@
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/static/*</url-pattern>
+    <url-pattern>*.html</url-pattern>
   </servlet-mapping>
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath*:spring-*.xml</param-value>
   </context-param>
+
+  <!--加载spring容器-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
 
 
   <!--请求转发，加载springMVC容器-->
@@ -58,8 +64,14 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <!--加载spring容器-->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+
+  <!--spring security-->
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

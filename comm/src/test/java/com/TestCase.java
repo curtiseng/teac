@@ -12,7 +12,7 @@ public class TestCase {
     @Test
     public void test() {
         ResultForJson<String> resultForJson =
-                new ResultForJson.Builder().resultStatus(0).data("hello").msg("test").build();
+                new ResultForJson.Builder<String>().resultStatus(0).data("hello").msg("test").build();
 
         System.out.println(resultForJson);
     }

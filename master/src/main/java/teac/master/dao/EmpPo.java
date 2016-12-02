@@ -13,5 +13,4 @@ import java.util.List;
 @Repository
 public interface EmpPo {
     List<Emp> findAll();
-    Date date = new Date();
 }
