@@ -1,23 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bean:beans xmlns:bean="http://www.springframework.org/schema/beans"
-            xmlns="http://www.springframework.org/schema/security"
+<b:beans xmlns="http://www.springframework.org/schema/security"
+            xmlns:b="http://www.springframework.org/schema/beans"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd"
             >
     <!--静态资源-->
     <http pattern="/static/**" security="none"/>
-    <http pattern="/show/**" security="none"/>
     <http pattern="/favicon.ico" security="none"/>
+    <http pattern="/themes/default/**" security="none"/>
 
     <http use-expressions="true" auto-config="true">
-        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/organ/**" access="hasRole('ROLE_ORGAN')"/>
+        <!--spring security中可以省略前边的ROLE-->
+        <intercept-url pattern="/home/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/super/**" access="hasRole('ROLE_SUPER')"/>
+        <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_SUPER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/run/**" access="hasAnyRole('ROLE_SUPER','ROLE_ADMIN','ROLE_RUN')"/>
+        <intercept-url pattern="/organ/**" access="hasAnyRole('ROLE_SUPER','ROLE_ADMIN','ROLE_RUN','ROLE_ORGAN')"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <form-login login-page="/themes/default/login.html" login-processing-url="/login"
+        username-parameter="username" password-parameter="password"  authentication-success-handler-ref="customSuccessHandler"/>
+        <!--authentication-failure-url,-->
+
+        <!--退出登陆-->
+        <logout logout-url="/home/lagout" logout-success-url="/home"/>
+
+        <!--单点登陆,第二次登陆会使第一次登陆失效-->
+        <session-management>
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+        </session-management>
+
+        <!--防止csrf攻击-->
+        <csrf disabled="true" />
     </http>
 
+    <!--验证码，自定义loginFilter-->
+    <!--<custom-filter ref="loginFilter" before="FORM_LOGIN_FILTER"/>-->
+
+    <!-- 启用方法权限控制注解 -->
+    <global-method-security jsr250-annotations="enabled"/>
+
+
+    <!--使用JdbcDaoImpl提供用户信息-->
     <authentication-manager alias="authenticationManager">
-        <authentication-provider>
-            <jdbc-user-service data-source-ref="dataSource"/>
+        <authentication-provider user-service-ref="userDetailsService">
+            <!--密码加密-->
+            <password-encoder hash="md5"/>
         </authentication-provider>
+
     </authentication-manager>
-</bean:beans>
+
+    <b:bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <b:property name="dataSource" ref="dataSource"/>
+        <!--启用用户组权限，默认用户权限-->
+        <b:property name="enableGroups" value="true"/>
+        <b:property name="usersByUsernameQuery" value="SELECT telephone AS username,password,enabled FROM teac_user WHERE telephone=?"/>
+        <b:property name="authoritiesByUsernameQuery"
+                        value="SELECT
+                                   user.telephone AS username, ga.authority AS authority
+                               FROM
+                                   groups g, teac_user user, group_authorities ga
+                               WHERE
+                                   user.telephone = ? AND g.id = ga.group_id AND g.id = user.group_id"
+        />
+        <b:property name="groupAuthoritiesByUsernameQuery"
+                        value="SELECT
+                                   g.id, g.group_name, ga.authority
+                               FROM
+                                   groups g, teac_user user, group_authorities ga
+                               WHERE
+                                   user.telephone = ? AND g.id = ga.group_id AND g.id = user.group_id"
+        />
+    </b:bean>
+
+
+</b:beans>

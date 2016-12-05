@@ -17,11 +17,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- -------------------
 DROP TABLE IF EXISTS 'teac_user';
 CREATE TABLE 'teac_user' (
-  'user_id' BIGINT  NOT NULL PRIMARY KEY ,
+  'user_id' BIGINT PRIMARY KEY ,
   'teacher_id' BIGINT DEFAULT NULL ,
-  'username' VARCHAR(64) NOT NULL ,
+  'organ_id' BIGINT DEFAULT NULL ,
+  'nickname' VARCHAR(64) NOT NULL ,
   'telephone' VARCHAR(16) NOT NULL ,
   'password' VARCHAR(64) NOT NULL ,
+  'enabled' BOOLEAN NOT NULL DEFAULT TRUE ,
+  'group_id' BIGINT DEFAULT '1',
   'avatar' VARCHAR(255) DEFAULT '/static/images/default_avatar.png',
   'surname' VARCHAR(16) NOT NULL ,
   'sex' CHAR DEFAULT 'N' COMMENT 'M,F,N',
@@ -32,16 +35,18 @@ CREATE TABLE 'teac_user' (
   'createtime' TIMESTAMP DEFAULT current_time,
   FOREIGN KEY(teacher_id) REFERENCES teac_teacher(teacher_id),
   FOREIGN KEY(area_code)  REFERENCES teac_area(area_code),
+  FOREIGN KEY (organ_id) REFERENCES teac_organ(organ_id),
   UNIQUE KEY 'UK_teac_unique_key_1' ('telephone')
 )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 
+INSERT INTO teac_user VALUES ('1',null,null,'ThomasYang','18404904754','49ba59abbe56e057',TRUE ,'5',NULL ,'杨','N','1994-09-20',NULL ,'山西省大同市南郊区',NULL ,NULL);
 
 -- -------------------
 -- 教师认证信息
 -- -------------------
 DROP TABLE IF EXISTS 'teac_teacher';
 CREATE TABLE 'teac_teacher'(
-  'teacher_id' BIGINT NOT NULL PRIMARY KEY ,
+  'teacher_id' BIGINT PRIMARY KEY ,
   'subjects_code' VARCHAR(160) NOT NULL COMMENT '擅长科目组',
   'grades_code' VARCHAR(160) NOT NULL COMMENT '擅长年级',
   'school' VARCHAR(100) DEFAULT NULL COMMENT '毕业学校',
@@ -70,15 +75,16 @@ CREATE TABLE 'teac_teacher'(
 -- -------------------
 DROP TABLE IF EXISTS 'teac_area';
 CREATE TABLE 'teac_area'(
-  'area_id' INT NOT NULL PRIMARY KEY ,
+  'area_id' INT PRIMARY KEY ,
   'area_code' VARCHAR(40) DEFAULT '000000',
   'province' VARCHAR(40),
   'city' VARCHAR(40),
   'district' VARCHAR(40),
   'parent' VARCHAR(40),
   UNIQUE KEY 'UK_teac_unique_key_2' ('area_code')
-)ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+INSERT INTO teac_area VALUES (NULL ,'000000',NULL ,'北京',NULL ,NULL );
 
 -- -------------------
 -- 科目
@@ -89,7 +95,9 @@ CREATE TABLE teac_subject (
   'subject_code' VARCHAR(40),
   'subject_name' VARCHAR(40),
   UNIQUE KEY 'UK_teac_unique_key_3' (subject_code)
-)ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
+
+
 
 
 -- -------------------
@@ -101,7 +109,7 @@ CREATE TABLE 'teac_grade' (
   'grade_code' VARCHAR(40),
   'grade_name' VARCHAR(40),
   UNIQUE KEY 'UK_teac_unique_key_4' (grade_code)
-)ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 
 
 -- -------------------
@@ -115,7 +123,7 @@ CREATE TABLE 'teac_experience' (
   'finish_time' DATE,
   'content' VARCHAR(255),
   FOREIGN KEY (teacher_id) REFERENCES teac_teacher(teacher_id)
-)ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 
 
 -- -------------------
@@ -125,8 +133,8 @@ DROP TABLE IF EXISTS 'teac_msgcount';
 CREATE TABLE 'teac_msgcount' (
   'msg_count_id' BIGINT PRIMARY KEY ,
   'user_id' BIGINT,
-  'sysmsg_count' INT,
-  'comment_count' INT,
+  'sysmsg_count' INT DEFAULT '0',
+  'comment_count' INT DEFAULT '0',
   FOREIGN KEY (user_id) REFERENCES teac_user(user_id)
 )ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 
@@ -227,4 +235,44 @@ CREATE TABLE 'teac_comment'(
   'stars' INT DEFAULT 5,
   'createtime' TIMESTAMP DEFAULT current_time,
   FOREIGN KEY (user_id) REFERENCES teac_user(user_id)
+)ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
+
+
+-- -------------------
+--        后台
+-- -------------------
+-- 机构表
+CREATE TABLE 'teac_organ'(
+  'organ_id' BIGINT PRIMARY KEY ,
+  'organ_name' VARCHAR(100) NOT NULL
 )ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+
+-- 用户组表
+CREATE TABLE 'groups' (
+  'id' BIGINT PRIMARY KEY ,
+  'group_name' VARCHAR(50) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO groups VALUES ('1','用户');
+INSERT INTO groups VALUES ('2','机构');
+INSERT INTO groups VALUES ('3','运营');
+INSERT INTO groups VALUES ('4','管理');
+INSERT INTO groups VALUES ('5','超级管理');
+
+
+-- 用户权限表
+CREATE TABLE 'group_authorities' (
+  'group_id' BIGINT PRIMARY KEY,
+  'authority' VARCHAR(50) NOT NULL ,
+  CONSTRAINT fk_group_authorities_group FOREIGN KEY (group_id) REFERENCES groups(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO group_authorities VALUES ('1','ROLE_USER');
+INSERT INTO group_authorities VALUES ('2','ROLE_ORGAN');
+INSERT INTO group_authorities VALUES ('3','ROLE_RUN');
+INSERT INTO group_authorities VALUES ('4','ROLE_ADMIN');
+INSERT INTO group_authorities VALUES ('5','ROLE_SUPER');
+
+
+

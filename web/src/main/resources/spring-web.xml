@@ -15,7 +15,7 @@
     <context:component-scan base-package="teac"/>
     <mvc:annotation-driven/>
 
-    <!--多配置文件加载-->
+    <!--主配置文件加载-->
     <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
@@ -30,8 +30,8 @@
 
     <!--视图解析器-->
     <bean id="jsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="prefix" value="/themes/"/>
+        <property name="suffix" value=".html"/>
     </bean>
 
 </beans>
