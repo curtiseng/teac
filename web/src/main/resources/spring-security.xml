@@ -8,21 +8,24 @@
     <http pattern="/static/**" security="none"/>
     <http pattern="/favicon.ico" security="none"/>
     <http pattern="/themes/default/**" security="none"/>
+    <http pattern="/login.html" security="none"/>
+    <http pattern="/home**" security="none"/>
+    <http pattern="/resign" security="none"/>
 
     <http use-expressions="true" auto-config="true">
         <!--spring security中可以省略前边的ROLE-->
-        <intercept-url pattern="/home/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <!--<intercept-url pattern="/home/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
         <intercept-url pattern="/super/**" access="hasRole('ROLE_SUPER')"/>
         <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_SUPER','ROLE_ADMIN')"/>
         <intercept-url pattern="/run/**" access="hasAnyRole('ROLE_SUPER','ROLE_ADMIN','ROLE_RUN')"/>
         <intercept-url pattern="/organ/**" access="hasAnyRole('ROLE_SUPER','ROLE_ADMIN','ROLE_RUN','ROLE_ORGAN')"/>
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
-        <form-login login-page="/themes/default/login.html" login-processing-url="/login"
-        username-parameter="username" password-parameter="password"  authentication-success-handler-ref="customSuccessHandler"/>
+        <intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
+        <form-login login-page="/login.html" login-processing-url="/login"
+                    username-parameter="username" password-parameter="password" authentication-success-handler-ref="customSuccessHandler"/>
         <!--authentication-failure-url,-->
 
         <!--退出登陆-->
-        <logout logout-url="/home/lagout" logout-success-url="/home"/>
+        <logout logout-url="/home/lagout" logout-success-url="/"/>
 
         <!--单点登陆,第二次登陆会使第一次登陆失效-->
         <session-management>
@@ -44,7 +47,7 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsService">
             <!--密码加密-->
-            <password-encoder hash="md5"/>
+            <!--<password-encoder hash="md5"/>-->
         </authentication-provider>
 
     </authentication-manager>
@@ -58,9 +61,9 @@
                         value="SELECT
                                    user.telephone AS username, ga.authority AS authority
                                FROM
-                                   groups g, teac_user user, group_authorities ga
+                                   teac_user user, group_authorities ga
                                WHERE
-                                   user.telephone = ? AND g.id = ga.group_id AND g.id = user.group_id"
+                                   user.telephone = ? AND user.group_id = ga.group_id"
         />
         <b:property name="groupAuthoritiesByUsernameQuery"
                         value="SELECT

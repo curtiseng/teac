@@ -62,7 +62,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
         } else if (isUser(roles)) {
             url = "/home";
         } else {
-            url = "/login";
+            url = "/";
         }
 
         return url;
