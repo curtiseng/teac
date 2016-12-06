@@ -9,7 +9,7 @@
     <http pattern="/favicon.ico" security="none"/>
     <http pattern="/themes/default/**" security="none"/>
     <http pattern="/login.html" security="none"/>
-    <http pattern="/home**" security="none"/>
+    <http pattern="/home/**" security="none"/>
     <http pattern="/resign" security="none"/>
 
     <http use-expressions="true" auto-config="true">
