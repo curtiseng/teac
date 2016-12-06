@@ -39,7 +39,6 @@ CREATE TABLE 'teac_user' (
   UNIQUE KEY 'UK_teac_unique_key_1' ('telephone')
 )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 
-INSERT INTO teac_user VALUES ('1',null,null,'ThomasYang','18404904754','49ba59abbe56e057',TRUE ,'5',NULL ,'杨','N','1994-09-20',NULL ,'山西省大同市南郊区',NULL ,NULL);
 
 -- -------------------
 -- 教师认证信息
