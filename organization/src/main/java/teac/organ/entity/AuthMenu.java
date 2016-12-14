@@ -1,4 +1,4 @@
-package teac.organ.data;
+package teac.organ.entity;
 
 /**
  * 后台功能菜单
