@@ -7,6 +7,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -38,10 +39,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
-    /*
-     * This method extracts the roles of currently logged-in user and returns
-     * appropriate URL according to his/her role.
-     */
+
     private String determineTargetUrl(Authentication authentication) {
         String url;
 
@@ -96,19 +94,20 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
         return redirectStrategy;
     }
 
-//    @Override
-//    public void onAuthenticationSuccess(HttpServletRequest request,
-//                                        HttpServletResponse response, Authentication auth)
-//            throws IOException, ServletException {
-//        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
-//            response.getWriter().print(
-//                    "{success:true, targetUrl : \'"
-//                            + this.getTargetUrlParameter() + "\'}");
-//            response.getWriter().flush();
-//        } else {
-//            super.onAuthenticationSuccess(request, response, auth);
-//        }
-//    }
+
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request,
+                                        HttpServletResponse response, Authentication auth)
+           throws IOException, ServletException {
+        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+           response.getWriter().print(
+                   "{success:true, targetUrl : \'"
+                            + this.getTargetUrlParameter() + "\'}");
+            response.getWriter().flush();
+        } else {
+            super.onAuthenticationSuccess(request, response, auth);
+       }
+    }
 }
 
 

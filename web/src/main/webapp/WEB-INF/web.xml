@@ -74,6 +74,6 @@
 
 
   <welcome-file-list>
-    <welcome-file>/themes/default/index.html</welcome-file>
+    <welcome-file>/home</welcome-file>
   </welcome-file-list>
 </web-app>
