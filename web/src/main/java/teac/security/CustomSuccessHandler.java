@@ -6,6 +6,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import teac.web.util.HttpUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -95,13 +96,21 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
     }
 
 
+    /**
+     * ajax登陆返回session
+     * @param request
+     * @param response
+     * @param auth
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response, Authentication auth)
            throws IOException, ServletException {
-        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+        if (HttpUtil.isAjaxRequest(request)) {
            response.getWriter().print(
-                   "{success:true, targetUrl : \'"
+                   "ResultForJson:{success:true, targetUrl : \'"
                             + this.getTargetUrlParameter() + "\'}");
             response.getWriter().flush();
         } else {

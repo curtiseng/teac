@@ -6,7 +6,11 @@ package teac.comm;
  */
 public class BaseUtil {
 
-
+    /**
+     * 根据类全名返回Class
+     * @param beanName
+     * @return
+     */
     public static Class getBeanClassName(String beanName){
         try{
             return Class.forName(beanName).newInstance().getClass();

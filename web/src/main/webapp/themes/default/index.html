@@ -3,8 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>家教网</title>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/alert.js"></script>
+    <script>
+        $(function () {
+            function alertLogin() {
+                $("#can").load("themes/default/alert/a_login.html");
+            }
+            $("#ajaxLogin").click(alertLogin);
+
+            $("#can").on("click","#sure_login",function () {
+                var username = $("input[name='username']").val();
+                var password = $("input[name='password']").val();
+                $.ajax({
+                    url:"/login",
+                    type:"post",
+                    data:{username:username,password:password},
+                    dataType:"json",
+                    success:function (ResultForJson) {
+                        if(ResultForJson.success != true){
+                            alertLogin();
+                        }
+                        alert(ResultForJson.msg);
+                    },
+                    error:function () {
+                        alert("登陆失败");
+                    }
+                })
+            });
+
+            $("#load").click(function () {
+               $.ajax({
+                   url:"user/load",
+                   type:"post",
+                   dataType:"json",
+                   success:function (ResultForJson) {
+                       if (ResultForJson.resultStatus == 0) {
+                           console.log(ResultForJson);
+                           alert(ResultForJson);
+                       }
+                       if (ResultForJson.resultStatus == 1){
+                           alertLogin();
+                       }
+                   }
+               });
+            });
+        })
+
+    </script>
 </head>
 <body>
     <h1>首页</h1>
+    <button id="ajaxLogin">登陆</button>
+    <button id="load">加载</button>
+    <div id="can"></div>
 </body>
 </html>

@@ -25,6 +25,6 @@ public class LoadUserController {
         UserInfo userInfo = user.getUserInfo();
         System.out.println(userInfo);
         System.out.println(user);
-        return new ResultForJson.Builder<MyUser>().data(user).msg("success").build();
+        return new ResultForJson.Builder<MyUser>().data(user).msg("success").resultStatus(0).build();
     }
 }

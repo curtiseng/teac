@@ -21,7 +21,10 @@
         <intercept-url pattern="/organ/**" access="hasAnyRole('ROLE_SUPER','ROLE_ADMIN','ROLE_RUN','ROLE_ORGAN')"/>
         <intercept-url pattern="/user/**" access="hasAnyRole('ROLE_USER','ROLE_SUPER','ROLE_ADMIN','ROLE_RUN','ROLE_ORGAN')" />
         <form-login login-page="/toLogin" login-processing-url="/login"
-                    username-parameter="username" password-parameter="password" authentication-success-handler-ref="customSuccessHandler"/>
+                    username-parameter="username" password-parameter="password"
+                    authentication-success-handler-ref="customSuccessHandler"
+                    
+        />
         <!--authentication-failure-url,-->
 
         <!--退出登陆-->
