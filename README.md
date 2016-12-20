@@ -23,5 +23,5 @@ Maven多模块SpringMVC+MyBatis
 
 
 
-###重要日志
-1. 增加yzf分支,增加开发者yzf
+###log
++ 增加yzf分支,yzf加入开发
