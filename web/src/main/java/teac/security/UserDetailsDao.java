@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 自定义User
+ * 自定义UserDao
  * Created by yangzifeng on 2016/12/14.
  */
 public class UserDetailsDao extends JdbcDaoImpl {

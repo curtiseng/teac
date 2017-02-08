@@ -2,9 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="teac.master.dao.EmpPo">
-    <select id="findAll" resultType="teac.master.entity.Emp">
-        SELECT * FROM emp
+<mapper namespace="teac.master.dao.UserDao">
+
+    <!--第一步注册-->
+    <insert id="resign" parameterType="string">
+        INSERT INTO
+          teac_user(telephone,password)
+        VALUES (#{telephone},#{password})
+    </insert>
+
+    <!--查询用户手机号是否已被占用-->
+    <select id="checkByTelephone" parameterType="string" resultType="">
+        SELECT * FROM teac_user WHERE telephone = #{str}
     </select>
 
+
+
+    <!--后台-->
+    <!--查找用户数-->
+    <select id="findAll" resultType="teac.master.entity.UserInfo">
+        SELECT count(*) FROM teac_user
+    </select>
 </mapper>
