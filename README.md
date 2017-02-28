@@ -5,7 +5,9 @@
 项目地址：https://github.com/ThomasYangZi/teac
 ### 使用技术
 Java8 + Tomcat8
+
 1. 框架：
+
   + Spring 4.2.2.RELEASE
   + SpringMVC 4.2.2.RELEASE
   + Mybatis 3.2.6
@@ -13,7 +15,9 @@ Java8 + Tomcat8
   + Spring Security 4.0.3.RELEASE
   + Quartz
   + JQuery
+  
 2. 数据库
+
   + Mysql 5.7
   + Redis 3.0.3
 
